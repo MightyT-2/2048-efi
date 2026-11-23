@@ -48,7 +48,7 @@ _If on Linux_, add the following to `/ect/grub.d/40_custom`, replacing `/path/to
 
 ```
 menuentry '2048' {
-	set root=(hd0,gpt2)
+	set root=(*partition with main.efi*)
 	chainloader /path/to/main.efi
 }
 ```
