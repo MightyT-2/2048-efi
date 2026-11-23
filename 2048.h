@@ -1,15 +1,17 @@
+/* Movement */
 BOOLEAN move_right();
 BOOLEAN move_left();
 BOOLEAN move_up();
 BOOLEAN move_down();
 
+/* Game mechanics */
 BOOLEAN add_number();
-
-void print_game();
-int strlen(CHAR16 *initial_char);
-
 BOOLEAN is_lost();
 
-void clear_game();
-
+/* Display */
 void print_debug(short unsigned int *string);
+void clear_game();
+void print_game();
+
+/* Support */
+int strlen(CHAR16 *initial_char);

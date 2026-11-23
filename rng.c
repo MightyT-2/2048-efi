@@ -1,8 +1,8 @@
 #include "rng.h"
 
 #define MODULUS     0x80000000
-#define MULTIPLIER  1103515245
-#define INCREMENTOR 12345
+#define MULTIPLIER  0x41C64E6D
+#define INCREMENTOR 0x3039
 
 int seed = 1;
 

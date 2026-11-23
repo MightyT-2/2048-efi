@@ -14,29 +14,20 @@ EFIAPI
 efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
 {
 	EFI_INPUT_KEY key;
-	EFI_STATUS efi_status;
     EFI_TIME time;
 
     InitializeLib(ImageHandle, SystemTable);
 
-    uefi_call_wrapper(SystemTable->ConOut->OutputString, 2, SystemTable->ConOut, L"Test");
-
-    efi_status = uefi_call_wrapper(SystemTable->RuntimeServices->GetTime, 2, &time, 0);
-
-
-    // EFI_GRAPHICS_OUTPUT_PROTOCOL;
-    EFI_GUID gopGuid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
-
-    efi_status = uefi_call_wrapper(BS->LocateProtocol, 3, &gopGuid, NULL, (void**)&gop);
-    if(EFI_ERROR(efi_status))
-        print_debug(L"Unable to locate GOP");
-    else
-        print_debug(L"Located GOP");
-
+    uefi_call_wrapper(SystemTable->RuntimeServices->GetTime, 2, &time, 0);
     seed_rng(time.Second + time.Minute * 60 + time.Hour * 3600);
+
     add_number();
     add_number();   
     
+    print_debug(L"Arrow keys = Movement");
+    print_debug(L"Esc key    = Quit");
+    print_debug(L"r          = Reset");
+
     while (key.ScanCode != 0x17)
     {
         print_game();
@@ -87,10 +78,4 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     }
     
     return EFI_SUCCESS;
-}
-
-void print_pixel(int x, int y, int pixel)
-{
-
-    *((uint32_t*)(gop->Mode->FrameBufferBase + 4 * gop->Mode->Info->PixelsPerScanLine * y + 4 * x)) = pixel;
 }
